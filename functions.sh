@@ -92,7 +92,7 @@ EOF
     if [[ -f ${PATCH_TMP}${NAME_SCRIPT} ]]; then rm ${PATCH_TMP}${NAME_SCRIPT}; fi # supprime d'eventiels fichiers
 }
 
-f_println() {
+println() {
     level=$1
     text=$2
 
