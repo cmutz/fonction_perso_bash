@@ -8,10 +8,9 @@ f_check_soft() {
 	println error "$1 non detecte sur cette distribution vous pouvez"
 	println error "l'installer en faisant un apt-get install $1 "
 	println error " et/ou verifier manuellement la presence du paquet"
-        export check_soft="KO"
+        exit 1
     else
         println ras " $1	---> [ OK ]"
-
     fi
 sleep 0.5
 }
