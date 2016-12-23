@@ -51,16 +51,14 @@ f_generate_pair_authentication_keys() {
 
     echo -en  "\t\n Creation de la pair ssh sur le serveur local\n"
     if [ ! -f /root/.ssh/id_rsa.pub ]; then
-    ${PATCH_KEYGEN} -t rsa -f /$1/.ssh/id_rsa -N ""
+   ssh-keygen -t rsa -f /$1/.ssh/id_rsa -N ""
     else 
     echo -en  "\t\n/$1/.ssh/id_rsa.pub exist"
    echo -en  "\t\n Utilisation de la pair de clé /$1/.ssh/id_rsa"
     fi
-	### Ne comprend pas ce que ça fait là !  ###
     echo -en  "\t\n------------> WARNING !!!! <------------ \n"
     echo -en  "\t\n------------> ETES VOUS PRET A RENTRER LE MOT DE PASSE de l'utilisateur $1 (presser entrer) <------------ \n"; read
-    [ -f ssh-copy-id ] && ssh-copy-id -i /$1/.ssh/id_rsa.pub $1@$2 -p $3
-	### Ne comprend pas ce que ça fait là !  ###
+    ssh-copy-id -i /$1/.ssh/id_rsa.pub $1@$2 -p $3
 }
 
 f_verification_connexion_ssh() {
