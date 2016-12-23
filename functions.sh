@@ -65,7 +65,7 @@ f_generate_pair_authentication_keys() {
 
 f_verification_connexion_ssh() {
 
-    print "\t vérification de la connection ssh\n"
+    echo -en  "\t vérification de la connection ssh\n"
 
     cat > ${PATCH_TMP}${NAME_SCRIPT} << EOF
 #!/usr/bin/expect -f
