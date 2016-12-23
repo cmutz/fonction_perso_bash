@@ -47,7 +47,7 @@ f_verification_access_ping() {
 
 f_generate_pair_authentication_keys() {
     echo -en  "\t\n Verification du paquet ssh-keygen \n"
-    check_soft ssh-keygen
+    f_check_soft ssh-keygen
 
     echo -en  "\t\n Creation de la pair ssh sur le serveur local\n"
     if [ ! -f /root/.ssh/id_rsa.pub ]; then
