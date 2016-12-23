@@ -71,7 +71,7 @@ f_verification_connexion_ssh() {
 #!/usr/bin/expect -f
 set timeout 3
    
-spawn ssh -p ${PORT_SSH} $1@$2 ls -ld /etc
+spawn ssh -p $3 $1@$2 ls -ld /etc
 expect {
 "yes/no" {send "yes\n"}
 "etc" {exec echo $1@$2 >> /tmp/serveur-ok.txt}
