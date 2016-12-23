@@ -67,28 +67,28 @@ f_verification_connexion_ssh() {
 
     echo -en  "\t vérification de la connection ssh\n"
 
-    cat > ${PATCH_TMP}${NAME_SCRIPT} << EOF
+    cat > /tmp/expect-script.sh << EOF
 #!/usr/bin/expect -f
 set timeout 3
    
 spawn ssh -p ${PORT_SSH} $1@$2 ls -ld /etc
 expect {
 "yes/no" {send "yes\n"}
-"etc" {exec echo $1@$2 >> ${PATCH_TMP}serveur-ok.txt}
+"etc" {exec echo $1@$2 >> /tmp/serveur-ok.txt}
 }
 
 expect {
-"Password" {exec echo $1@$2 >> ${PATCH_TMP}serveur-nok.txt}
-"etc" {exec echo $1@$2 >> ${PATCH_TMP}serveur-ok.txt}
+"Password" {exec echo $1@$2 >> /tmp/serveur-nok.txt}
+"etc" {exec echo $1@$2 >> /tmp/serveur-ok.txt}
 }
 
 EOF
-    chmod 700 ${PATCH_TMP}${NAME_SCRIPT}
-    ${PATCH_TMP}${NAME_SCRIPT}
+    chmod 700 /tmp/expect-script.sh
+    /tmp/expect-script.sh
     if [[ -f /${PATCH_TMP}serveur-ok.txt ]]; then export ETAT_SSH="OK"; else export ETAT_SSH="KO"; fi
     #clean function
-    if [[ -f ${PATCH_TMP}serveur-*.txt ]]; then rm ${PATCH_TMP}serveur-*.txt; fi # supprime d'eventiels fichiers
-    if [[ -f ${PATCH_TMP}${NAME_SCRIPT} ]]; then rm ${PATCH_TMP}${NAME_SCRIPT}; fi # supprime d'eventiels fichiers
+    if [[ -f /tmp/serveur-*.txt ]]; then rm /tmp/serveur-*.txt; fi # supprime d'eventiels fichiers
+    if [[ -f /tmp/expect-script.sh ]]; then rm /tmp/expect-script.sh; fi # supprime d'eventiels fichiers
 }
 
 println() {
