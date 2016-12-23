@@ -4,13 +4,13 @@
 f_check_soft() {
    which $1 > /dev/null
     if [ $? != 0 ] ; then
-        println error " $1	---> [ KO ]"
-	println error "$1 non detecte sur cette distribution vous pouvez"
-	println error "l'installer en faisant un apt-get install $1 "
-	println error " et/ou verifier manuellement la presence du paquet"
+        print " $1	---> [ KO ]"
+	print "$1 non detecte sur cette distribution vous pouvez"
+	print "l'installer en faisant un apt-get install $1 "
+	print " et/ou verifier manuellement la presence du paquet"
         exit 1
     else
-        println ras " $1	---> [ OK ]"
+        print " $1	---> [ OK ]"
     fi
 sleep 0.5
 }
@@ -34,7 +34,7 @@ f_verification_access_ping() {
 # vérifier si le serveur est joiniable 
 # code de sortie : 0 pour ok et 1 pour adresse ipv4 non valide
     if PATCH_PING=$(which ping) ; then 
-	println info "\t\nvérification de l'accessibilité du serveur"
+	print "\t\nvérification de l'accessibilité du serveur"
         ${PATCH_PING} -c1 $*
 	# Si le resultat de la commande renvoi != 0 alors ça ping !
 	echo $?
@@ -46,26 +46,26 @@ f_verification_access_ping() {
 
 
 f_generate_pair_authentication_keys() {
-    println info "\t\n Verification du paquet ssh-keygen \n"
+    print "\t\n Verification du paquet ssh-keygen \n"
     check_soft ssh-keygen
 
-    println info "\t\n Creation de la pair ssh sur le serveur local\n"
+    print "\t\n Creation de la pair ssh sur le serveur local\n"
     if [ ! -f /root/.ssh/id_rsa.pub ]; then
     ${PATCH_KEYGEN} -t rsa -f /$1/.ssh/id_rsa -N ""
     else 
-    println warn "\t\n/$1/.ssh/id_rsa.pub exist"
-    println warn "\t\n Utilisation de la pair de clé /$1/.ssh/id_rsa"
+    print "\t\n/$1/.ssh/id_rsa.pub exist"
+    print "\t\n Utilisation de la pair de clé /$1/.ssh/id_rsa"
     fi
 	### Ne comprend pas ce que ça fait là !  ###
-    println warn "\t\n------------> WARNING !!!! <------------ \n"
-    println warn "\t\n------------> ETES VOUS PRET A RENTRER LE MOT DE PASSE de l'utilisateur $1 (presser entrer) <------------ \n"; read
+    print "\t\n------------> WARNING !!!! <------------ \n"
+    print "\t\n------------> ETES VOUS PRET A RENTRER LE MOT DE PASSE de l'utilisateur $1 (presser entrer) <------------ \n"; read
     [ -f ${PATCH_SSH_COPY_ID} ] && ${PATCH_SSH_COPY_ID} -i /$1/.ssh/id_rsa.pub $1@$2 -p ${PORT_SSH}
 	### Ne comprend pas ce que ça fait là !  ###
 }
 
 f_verification_connexion_ssh() {
 
-    println info "\t vérification de la connection ssh\n"
+    print "\t vérification de la connection ssh\n"
 
     cat > ${PATCH_TMP}${NAME_SCRIPT} << EOF
 #!/usr/bin/expect -f
