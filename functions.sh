@@ -46,19 +46,19 @@ f_verification_access_ping() {
 
 
 f_generate_pair_authentication_keys() {
-    print "\t\n Verification du paquet ssh-keygen \n"
+    echo -en  "\t\n Verification du paquet ssh-keygen \n"
     check_soft ssh-keygen
 
-    print "\t\n Creation de la pair ssh sur le serveur local\n"
+    echo -en  "\t\n Creation de la pair ssh sur le serveur local\n"
     if [ ! -f /root/.ssh/id_rsa.pub ]; then
     ${PATCH_KEYGEN} -t rsa -f /$1/.ssh/id_rsa -N ""
     else 
-    print "\t\n/$1/.ssh/id_rsa.pub exist"
-    print "\t\n Utilisation de la pair de clé /$1/.ssh/id_rsa"
+    echo -en  "\t\n/$1/.ssh/id_rsa.pub exist"
+   echo -en  "\t\n Utilisation de la pair de clé /$1/.ssh/id_rsa"
     fi
 	### Ne comprend pas ce que ça fait là !  ###
-    print "\t\n------------> WARNING !!!! <------------ \n"
-    print "\t\n------------> ETES VOUS PRET A RENTRER LE MOT DE PASSE de l'utilisateur $1 (presser entrer) <------------ \n"; read
+    echo -en  "\t\n------------> WARNING !!!! <------------ \n"
+    echo -en  "\t\n------------> ETES VOUS PRET A RENTRER LE MOT DE PASSE de l'utilisateur $1 (presser entrer) <------------ \n"; read
     [ -f ${PATCH_SSH_COPY_ID} ] && ${PATCH_SSH_COPY_ID} -i /$1/.ssh/id_rsa.pub $1@$2 -p ${PORT_SSH}
 	### Ne comprend pas ce que ça fait là !  ###
 }
