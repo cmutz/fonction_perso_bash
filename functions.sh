@@ -34,7 +34,7 @@ f_verification_access_ping() {
 # vérifier si le serveur est joiniable 
 # code de sortie : 0 pour ok et 1 pour adresse ipv4 non valide
     if PATCH_PING=$(which ping) ; then 
-	print "\t\nvérification de l'accessibilité du serveur"
+	echo -en  "\t\nvérification de l'accessibilité du serveur"
         ${PATCH_PING} -c1 $*
 	# Si le resultat de la commande renvoi != 0 alors ça ping !
 	echo $?
