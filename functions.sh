@@ -59,7 +59,7 @@ f_generate_pair_authentication_keys() {
 	### Ne comprend pas ce que ça fait là !  ###
     echo -en  "\t\n------------> WARNING !!!! <------------ \n"
     echo -en  "\t\n------------> ETES VOUS PRET A RENTRER LE MOT DE PASSE de l'utilisateur $1 (presser entrer) <------------ \n"; read
-    [ -f ${PATCH_SSH_COPY_ID} ] && ${PATCH_SSH_COPY_ID} -i /$1/.ssh/id_rsa.pub $1@$2 -p ${PORT_SSH}
+    [ -f ssh-copy-id ] && ssh-copy-id -i /$1/.ssh/id_rsa.pub $1@$2 -p $3
 	### Ne comprend pas ce que ça fait là !  ###
 }
 
@@ -85,7 +85,7 @@ expect {
 EOF
     chmod 700 /tmp/expect-script.sh
     /tmp/expect-script.sh
-    if [[ -f /${PATCH_TMP}serveur-ok.txt ]]; then export ETAT_SSH="OK"; else export ETAT_SSH="KO"; fi
+    if [[ -f /tmp/serveur-ok.txt ]]; then export ETAT_SSH="OK"; else export ETAT_SSH="KO"; fi
     #clean function
     if [[ -f /tmp/serveur-*.txt ]]; then rm /tmp/serveur-*.txt; fi # supprime d'eventiels fichiers
     if [[ -f /tmp/expect-script.sh ]]; then rm /tmp/expect-script.sh; fi # supprime d'eventiels fichiers
